@@ -55,7 +55,7 @@ struct SwiftLogNoOpLogHandlerTest {
             message: "message",
             metadata: ["key": "value"],
             source: "test",
-            file: #file,
+            file: #fileID,
             function: #function,
             line: #line
         )

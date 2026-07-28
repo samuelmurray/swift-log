@@ -223,7 +223,7 @@ extension LogHandler {
                             "Attempted to set metadataProvider on \(Self.self) that did not implement support for them. Please contact the log handler maintainer to implement metadata provider support.",
                         metadata: nil,
                         source: "Logging",
-                        file: #file,
+                        file: #fileID,
                         function: #function,
                         line: #line
                     )
@@ -293,7 +293,7 @@ extension LogHandler {
             level: level,
             message: message,
             metadata: metadata,
-            source: Logger.currentModule(filePath: file),
+            source: Logger.currentModule(fileID: file),
             file: file,
             function: function,
             line: line

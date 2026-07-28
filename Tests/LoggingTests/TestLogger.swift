@@ -289,7 +289,7 @@ extension History {
         error: (any Error)? = nil,
         metadata: Logger.Metadata? = nil,
         source: String? = nil,
-        file: String = #filePath,
+        filePath: String = #filePath,
         fileID: String = #fileID,
         line: Int = #line,
         column: Int = #column
@@ -299,7 +299,7 @@ extension History {
         #expect(
             entry != nil,
             "entry not found: \(level), \(source), \(String(describing: metadata)), \(message), \(String(describing: error))",
-            sourceLocation: SourceLocation(fileID: fileID, filePath: file, line: line, column: column)
+            sourceLocation: SourceLocation(fileID: fileID, filePath: filePath, line: line, column: column)
         )
     }
 
@@ -309,8 +309,8 @@ extension History {
         error: (any Error)? = nil,
         metadata: Logger.Metadata? = nil,
         source: String? = nil,
-        file: String = #filePath,
-        fileID: String = #file,
+        filePath: String = #filePath,
+        fileID: String = #fileID,
         line: Int = #line,
         column: Int = #column
     ) {
@@ -319,7 +319,7 @@ extension History {
         #expect(
             entry == nil,
             "entry was found: \(level), \(source), \(String(describing: metadata)), \(message), \(String(describing: error))",
-            sourceLocation: SourceLocation(fileID: fileID, filePath: file, line: line, column: column)
+            sourceLocation: SourceLocation(fileID: fileID, filePath: filePath, line: line, column: column)
         )
     }
 

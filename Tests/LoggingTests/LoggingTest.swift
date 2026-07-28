@@ -485,13 +485,13 @@ struct LoggingTest {
 
     private func dontEvaluateThisString(
         fileID: String = #fileID,
-        file: StaticString = #filePath,
+        filePath: StaticString = #filePath,
         line: UInt = #line,
         column: UInt = #column
     ) -> Logger.Message {
         Issue.record(
             "should not have been evaluated",
-            sourceLocation: SourceLocation(fileID: fileID, filePath: "\(file)", line: Int(line), column: Int(column))
+            sourceLocation: SourceLocation(fileID: fileID, filePath: "\(filePath)", line: Int(line), column: Int(column))
         )
         return "should not have been evaluated"
     }
@@ -652,13 +652,13 @@ struct LoggingTest {
         let error = logger.error(_:error:metadata:source:file:function:line:)
         let critical = logger.critical(_:error:metadata:source:file:function:line:)
 
-        trace("yes: trace", TestError.boom, [:], "foo", #file, #function, #line)
-        debug("yes: debug", TestError.boom, [:], "foo", #file, #function, #line)
-        info("yes: info", TestError.boom, [:], "foo", #file, #function, #line)
-        notice("yes: notice", TestError.boom, [:], "foo", #file, #function, #line)
-        warning("yes: warning", TestError.boom, [:], "foo", #file, #function, #line)
-        error("yes: error", TestError.boom, [:], "foo", #file, #function, #line)
-        critical("yes: critical", TestError.boom, [:], "foo", #file, #function, #line)
+        trace("yes: trace", TestError.boom, [:], "foo", #fileID, #function, #line)
+        debug("yes: debug", TestError.boom, [:], "foo", #fileID, #function, #line)
+        info("yes: info", TestError.boom, [:], "foo", #fileID, #function, #line)
+        notice("yes: notice", TestError.boom, [:], "foo", #fileID, #function, #line)
+        warning("yes: warning", TestError.boom, [:], "foo", #fileID, #function, #line)
+        error("yes: error", TestError.boom, [:], "foo", #fileID, #function, #line)
+        critical("yes: critical", TestError.boom, [:], "foo", #fileID, #function, #line)
 
         testLogging.history.assertExist(level: .trace, message: "yes: trace", error: TestError.boom, source: "foo")
         testLogging.history.assertExist(level: .debug, message: "yes: debug", error: TestError.boom, source: "foo")
@@ -693,13 +693,13 @@ struct LoggingTest {
         let error = logger.error(_:metadata:source:file:function:line:)
         let critical = logger.critical(_:metadata:source:file:function:line:)
 
-        trace("yes: trace", [:], "foo", #file, #function, #line)
-        debug("yes: debug", [:], "foo", #file, #function, #line)
-        info("yes: info", [:], "foo", #file, #function, #line)
-        notice("yes: notice", [:], "foo", #file, #function, #line)
-        warning("yes: warning", [:], "foo", #file, #function, #line)
-        error("yes: error", [:], "foo", #file, #function, #line)
-        critical("yes: critical", [:], "foo", #file, #function, #line)
+        trace("yes: trace", [:], "foo", #fileID, #function, #line)
+        debug("yes: debug", [:], "foo", #fileID, #function, #line)
+        info("yes: info", [:], "foo", #fileID, #function, #line)
+        notice("yes: notice", [:], "foo", #fileID, #function, #line)
+        warning("yes: warning", [:], "foo", #fileID, #function, #line)
+        error("yes: error", [:], "foo", #fileID, #function, #line)
+        critical("yes: critical", [:], "foo", #fileID, #function, #line)
 
         testLogging.history.assertExist(level: .trace, message: "yes: trace", source: "foo")
         testLogging.history.assertExist(level: .debug, message: "yes: debug", source: "foo")
@@ -1006,7 +1006,7 @@ struct LoggingTest {
         let logRecorder = Recorder()
 
         var logger1 = Logger(
-            label: "logger-\(#file):\(#line)",
+            label: "logger-\(#fileID):\(#line)",
             factory: { _ in
                 LogHandlerWithGlobalLogLevelOverride(recorder: logRecorder)
             }

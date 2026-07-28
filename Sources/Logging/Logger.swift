@@ -1373,18 +1373,6 @@ extension Logger {
 
 extension Logger {
     @inlinable
-    internal static func currentModule(filePath: String = #file) -> String {
-        let utf8All = filePath.utf8
-        return filePath.utf8.lastIndex(of: UInt8(ascii: "/")).flatMap { lastSlash -> Substring? in
-            utf8All[..<lastSlash].lastIndex(of: UInt8(ascii: "/")).map { secondLastSlash -> Substring in
-                filePath[utf8All.index(after: secondLastSlash)..<lastSlash]
-            }
-        }.map {
-            String($0)
-        } ?? "n/a"
-    }
-
-    @inlinable
     internal static func currentModule(fileID: String = #fileID) -> String {
         let utf8All = fileID.utf8
         if let slashIndex = utf8All.firstIndex(of: UInt8(ascii: "/")) {
